@@ -347,6 +347,36 @@ section {
     border-color: #6B5B4F;
 }
 
+/* Video Scrolling Effect */
+.video-scroll-section {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.video-scroll-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    z-index: 10;
+}
+
+.video-scroll-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-scroll-spacer {
+    height: 4000px;
+    position: relative;
+}
+
 /* About Us */
 .about-us {
     background-color: #FFFFFF;
@@ -691,5 +721,9 @@ section {
 
     section {
         padding: 60px 20px;
+    }
+
+    .video-scroll-spacer {
+        height: 3000px;
     }
 }

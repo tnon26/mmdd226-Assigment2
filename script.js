@@ -1,5 +1,42 @@
+// Video scrolling effect - cycles through images based on scroll position
+function initVideoScroll() {
+    const scrollImage = document.getElementById('scroll-image');
+    const scrollSection = document.querySelector('.video-scroll-section');
+    const scrollSpacer = document.querySelector('.video-scroll-spacer');
+    
+    if (!scrollImage || !scrollSection || !scrollSpacer) return;
+    
+    const totalImages = 40; // 40 images total (00000 to 00039)
+    const imagePath = 'assets/video-scrolling/Grandfather_Clock_Video_Generation_';
+    let currentImageIndex = -1;
+    
+    function updateImage() {
+        const scrollY = window.pageYOffset;
+        const sectionTop = scrollSection.offsetTop;
+        const spacerHeight = scrollSpacer.offsetHeight;
+        
+        // Calculate progress: 0 when at section start, 1 when spacer is fully scrolled
+        const progress = Math.max(0, Math.min(1, (scrollY - sectionTop) / spacerHeight));
+        
+        // Calculate which image to display (0 to 39)
+        const imageIndex = Math.min(Math.floor(progress * totalImages), totalImages - 1);
+        
+        // Update image only if it changed
+        if (imageIndex !== currentImageIndex) {
+            currentImageIndex = imageIndex;
+            const imageNumber = String(imageIndex).padStart(5, '0');
+            scrollImage.src = `${imagePath}${imageNumber}.png`;
+        }
+    }
+    
+    window.addEventListener('scroll', updateImage);
+    updateImage(); // Initial load
+}
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize video scroll effect
+    initVideoScroll();
     // Smooth scroll for anchor links
     const navLinks = document.querySelectorAll('a[href^="#"]');
     
