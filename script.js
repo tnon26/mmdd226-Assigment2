@@ -25,7 +25,7 @@ function initVideoScroll() {
         if (imageIndex !== currentImageIndex) {
             currentImageIndex = imageIndex;
             const imageNumber = String(imageIndex).padStart(5, '0');
-            scrollImage.src = `${imagePath}${imageNumber}.png`;
+            scrollImage.src = `${imagePath}${imageNumber}.jpeg`;
         }
     }
     
@@ -37,6 +37,45 @@ function initVideoScroll() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize video scroll effect
     initVideoScroll();
+    
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        if (menuOverlay) {
+            menuOverlay.classList.toggle('active');
+        }
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        if (menuOverlay) {
+            menuOverlay.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+    }
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', toggleMenu);
+        
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMenu);
+        }
+        
+        // Close menu when clicking on a link
+        const menuLinks = document.querySelectorAll('.nav-menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
+    
     // Smooth scroll for anchor links
     const navLinks = document.querySelectorAll('a[href^="#"]');
     
